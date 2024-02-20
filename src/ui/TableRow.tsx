@@ -1,53 +1,30 @@
 import { MdDelete } from "react-icons/md";
 import { StyledInput } from "./StyledInput";
 import { Td } from "./Td";
-import { useId, useState } from "react";
-import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { formatCurrency } from "../utils/helper";
 
-function TableRow({ handleClick }) {
-  const [itemName, setItemName] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [price, setPrice] = useState("");
-  const id = Math.random().toString(36).substring(7);
-
+function TableRow({ item }) {
+  const { itemName, quantity, price,id } = item;
   return (
     <>
       <tr>
         <Td first="true">
-          <StyledInput
-            value={itemName}
-            onChange={(e) => setItemName(e.target.value)}
-          />
+          <StyledInput value={itemName} readOnly />
         </Td>
-        <Td first="">
-          <StyledInput
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-          />
+        <Td>
+          <StyledInput value={quantity} readOnly />
         </Td>
-        <Td first="">
-          <StyledInput
-            value={price}
-            onChange={(e) => {
-              setPrice(e.target.value);
-            }}
-          />
+        <Td>
+          <StyledInput value={price} readOnly />
         </Td>
-
-        <Td first="">
-          <div
-            className="text-white cursor-pointer underline"
-            onClick={() => handleClick({ itemName, quantity, price, id })}
-          >
-           Done
-          </div>
-        </Td>
-        <Td first="">
-          <p className="text-[#d9daec]">$40</p>
+        <Td>
+          <p className="text-[#d9daec]">
+            {formatCurrency(Number(quantity) * Number(price))}
+          </p>
         </Td>
         <Td first="">
           <div
-            className="text-[#d9daec]"
+            className="text-[#d9daec] cursor-pointer"
             //   onClick={() => handleDelete(arrayOfItems)}
           >
             <MdDelete />

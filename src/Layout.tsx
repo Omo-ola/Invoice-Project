@@ -19,7 +19,7 @@ function Layout() {
           isOpen ? "translate-x-[4rem]" : "translate-x-[-30rem]"
         } w-[400px] rounded-r-[2rem] px-4 pl-10 py-4`}
       >
-        <InvoiceForm />
+        <InvoiceForm openForm={setIsOpen} />
       </section>
     </div>
   );
