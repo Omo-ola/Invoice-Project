@@ -9,10 +9,7 @@ import { Table } from "./Table";
 import TableRow from "./TableRow";
 import Modal from "./Modal";
 import toast from "react-hot-toast";
-
-export interface TdProps {
-  first?: string;
-}
+import { InvoiceData, Toggle, Item, Errors } from "../types/Interface";
 
 const SmallP = styled.p`
   font-size: 0.675rem;
@@ -21,42 +18,11 @@ const SmallP = styled.p`
   margin: 0.275rem 0;
 `;
 
-interface Toggle {
-  openForm: (isOpen: boolean) => void;
-}
-
 function InvoiceForm({ openForm }: Toggle) {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset } = useForm<InvoiceData>();
   const [isOpen, setIsOpen] = useState(false);
-  const [arrOfItem, setArrOfItem] = useState<any[]>([]);
+  const [arrOfItem, setArrOfItem] = useState<Item[]>([]);
 
-  // Interfaces
-
-  interface Errors {
-    [key: string]: any;
-  }
-  interface Item {
-    price: string;
-    quantity: string;
-    itemName: string;
-    id: string;
-  }
-
-  interface InvoiceData {
-    streetAddress: string;
-    billerCity: string;
-    postCode: string;
-    billerCountry: string;
-    clientName: string;
-    clientEmail: string;
-    clientAddress: string;
-    clientCity: string;
-    clientPostCode: string;
-    clientCountry: string;
-    invoiceDate: string;
-    paymentTerm: string;
-    projectDescription: string;
-  }
   // Function***********************************************************************************
 
   function handleGetRecord(record: Item) {
@@ -73,7 +39,7 @@ function InvoiceForm({ openForm }: Toggle) {
     setIsOpen(false);
   }
 
-  function onSubmit(data) {
+  const onSubmit = (data: InvoiceData) => {
     const itemPrice: Item[] = arrOfItem;
     if (itemPrice.length < 1) {
       toast.error("Add item that contain price and quantity");
@@ -81,15 +47,16 @@ function InvoiceForm({ openForm }: Toggle) {
     }
     const invoice = { ...data, itemPrice };
     console.log(invoice);
-    
-    
+
     toast.success("Invoice created and submitted successfully");
     reset();
     setIsOpen(false);
     setArrOfItem([]);
     openForm(false);
-  }
+  };
   function onError(errors: Errors) {
+    console.log(errors);
+
     if (Object.keys(errors).length > 0) {
       const firstElement = errors[Object.keys(errors)[0]];
       toast.error(firstElement.message);
@@ -231,7 +198,7 @@ function InvoiceForm({ openForm }: Toggle) {
           </thead>
           <tbody>
             {arrOfItem.map((item) => (
-              <TableRow key={item.id} item={item} />
+              <TableRow key={item.id} item={item} setArrOfItem={setArrOfItem} />
             ))}
           </tbody>
         </Table>

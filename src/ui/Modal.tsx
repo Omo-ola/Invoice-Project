@@ -1,16 +1,18 @@
 import toast from "react-hot-toast";
 import { StyledInput } from "./StyledInput";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import { ModalProps } from "../types/Interface";
 
-function Modal({ closeModal, handleGetRecord }) {
+function Modal({ closeModal, handleGetRecord }: ModalProps) {
   const [itemName, setItemName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
 
-  function submit(e) {
-    const id = Math.random().toString(36).substring(7);
+  function submit(e: FormEvent) {
     e.preventDefault();
-    if (itemName === "" ) {
+
+    const id = Math.random().toString(36).substring(7);
+    if (itemName === "") {
       toast.error("Fill the required fields");
       return;
     }

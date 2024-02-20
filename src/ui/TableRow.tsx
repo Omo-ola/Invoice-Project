@@ -2,9 +2,16 @@ import { MdDelete } from "react-icons/md";
 import { StyledInput } from "./StyledInput";
 import { Td } from "./Td";
 import { formatCurrency } from "../utils/helper";
+import toast from "react-hot-toast";
 
-function TableRow({ item }) {
-  const { itemName, quantity, price,id } = item;
+function TableRow({ item,  setArrOfItem }) {
+  const { itemName, quantity, price, id } = item;
+
+  function handleDelete() {
+    setArrOfItem((items) => items.filter((data) => data.id !== id));
+    toast.success("Item deleted Successfully");
+  }
+
   return (
     <>
       <tr>
@@ -25,7 +32,7 @@ function TableRow({ item }) {
         <Td first="">
           <div
             className="text-[#d9daec] cursor-pointer"
-            //   onClick={() => handleDelete(arrayOfItems)}
+            onClick={() => handleDelete()}
           >
             <MdDelete />
           </div>

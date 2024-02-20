@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { formatCurrency } from "../utils/helper";
+import { IoIosArrowForward } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 interface ParagraphProps {
   type?: "paid" | "pending" | "draft";
@@ -91,10 +93,13 @@ function Card({ types }: CardProps) {
       <p className="row-start-2">Due 19 Aug 2021</p>
       <p className="">Jahnsen Huang</p>
       <p className="text-xl font-semibold">{formatCurrency(6500.9)}</p>
-      <div className="col-start-2 row-start-2 row-span-2">
+      <div className="col-start-2 row-start-2 row-span-2 flex gap-4 items-center">
         <LabelContainer type={types}>
           <Labels type={types}>{types}</Labels>
         </LabelContainer>
+        <Link to="" className="text-[#7761e7] font-bold cursor-pointer">
+          <IoIosArrowForward />
+        </Link>
       </div>
     </Container>
   );
