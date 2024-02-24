@@ -2,13 +2,9 @@ import styled from "styled-components";
 import { formatCurrency } from "../utils/helper";
 import { IoIosArrowForward } from "react-icons/io";
 import { Link } from "react-router-dom";
-
-interface ParagraphProps {
-  type?: "paid" | "pending" | "draft";
-}
-interface CardProps {
-  types: "paid" | "pending" | "draft" | undefined;
-}
+import { CardProps } from "../types/Interface";
+import { LabelContainer } from "./LabelContainer";
+import { Labels } from "./Labels";
 
 const Container = styled.div`
   display: flex;
@@ -27,63 +23,6 @@ const Container = styled.div`
   }
 `;
 
-const LabelContainer = styled.div<ParagraphProps>`
-  padding: 0.25rem 2rem;
-  border-radius: 0.125rem;
-  background-color: ${(props) => {
-    switch (props.type) {
-      case "paid":
-        return "rgba(46, 195, 153, 0.2)";
-      case "pending":
-        return "rgba(221, 141, 26, 0.2)";
-      case "draft":
-        return "rgba(237, 239, 255, 0.2)";
-      default:
-        return "white";
-    }
-  }};
-`;
-
-const Labels = styled.p<ParagraphProps>`
-  position: relative;
-  font-weight: 700;
-  text-transform: capitalize;
-  color: ${(props) => {
-    switch (props.type) {
-      case "paid":
-        return "#2ec399";
-      case "pending":
-        return "#f0880d";
-      case "draft":
-        return "#edefff";
-      default:
-        return "white";
-    }
-  }};
-
-  &::before {
-    content: "";
-    position: absolute;
-    border-radius: 999px;
-    width: 8px;
-    height: 8px;
-    background-color: ${(props) => {
-      switch (props.type) {
-        case "paid":
-          return "#2ec399";
-        case "pending":
-          return "#f0880d";
-        case "draft":
-          return "#edefff";
-        default:
-          return "white";
-      }
-    }};
-    left: -14px;
-    top: 8px;
-  }
-`;
-
 function Card({ types }: CardProps) {
   return (
     <Container>
@@ -97,7 +36,10 @@ function Card({ types }: CardProps) {
         <LabelContainer type={types}>
           <Labels type={types}>{types}</Labels>
         </LabelContainer>
-        <Link to="" className="text-[#7761e7] font-bold cursor-pointer">
+        <Link
+          to="/invoice/id"
+          className="text-[#7761e7] font-bold cursor-pointer"
+        >
           <IoIosArrowForward />
         </Link>
       </div>

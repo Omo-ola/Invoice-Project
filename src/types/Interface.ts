@@ -42,3 +42,28 @@ export interface ModalProps {
   closeModal: () => void;
   handleGetRecord: (record: Record) => void;
 }
+
+
+export interface Ilogin {
+  email: string;
+  password: string;
+}
+
+export interface IsignUp {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
+
+export interface ButtonProps {
+  type: "edit" | "delete" | "mark" | undefined;
+}
+
+export interface ParagraphProps {
+  type?: "paid" | "pending" | "draft";
+}
+export interface CardProps {
+  types: "paid" | "pending" | "draft" | undefined;
+}

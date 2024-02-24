@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TdProps } from "./InvoiceForm";
+import { TdProps } from "../types/Interface";
 
 export const Td = styled.td<TdProps>`
   padding: 2px 8px;

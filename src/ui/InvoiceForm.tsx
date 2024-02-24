@@ -45,7 +45,7 @@ function InvoiceForm({ openForm }: Toggle) {
       toast.error("Add item that contain price and quantity");
       return;
     }
-    const invoice = { ...data, itemPrice };
+    const invoice = { ...data, itemPrice, isPaid: false };
     console.log(invoice);
 
     toast.success("Invoice created and submitted successfully");
