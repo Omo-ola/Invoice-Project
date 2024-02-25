@@ -10,7 +10,6 @@ function Modal({ closeModal, handleGetRecord }: ModalProps) {
 
   function submit(e: FormEvent) {
     e.preventDefault();
-
     const id = Math.random().toString(36).substring(7);
     if (itemName === "") {
       toast.error("Fill the required fields");
@@ -24,7 +23,13 @@ function Modal({ closeModal, handleGetRecord }: ModalProps) {
       toast.error("Price should be greater than 0");
       return;
     }
-    handleGetRecord({ itemName, quantity, price, id });
+    handleGetRecord({
+      itemName,
+      quantity,
+      price,
+      id,
+      total: Number(price) * Number(quantity),
+    });
     toast.success("Item created Successfully");
     setItemName("");
     setQuantity("");

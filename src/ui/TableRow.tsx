@@ -3,14 +3,17 @@ import { StyledInput } from "./StyledInput";
 import { Td } from "./Td";
 import { formatCurrency } from "../utils/helper";
 import toast from "react-hot-toast";
+import { Item } from "../types/Interface";
 
-function TableRow({ item,  setArrOfItem }) {
+function TableRow({ item, setArrOfItem }) {
   const { itemName, quantity, price, id } = item;
 
   function handleDelete() {
-    setArrOfItem((items) => items.filter((data) => data.id !== id));
+    setArrOfItem((items: Item[]) => items.filter((data) => data.id !== id));
     toast.success("Item deleted Successfully");
   }
+
+ 
 
   return (
     <>

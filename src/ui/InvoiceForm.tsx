@@ -10,8 +10,10 @@ import TableRow from "./TableRow";
 import Modal from "./Modal";
 import toast from "react-hot-toast";
 import { InvoiceData, Toggle, Item, Errors } from "../types/Interface";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createInvoice } from "../services/getInvoice";
 
-const SmallP = styled.p`
+export const SmallP = styled.p`
   font-size: 0.675rem;
   font-weight: 700;
   color: #7369c0;
@@ -20,6 +22,24 @@ const SmallP = styled.p`
 
 function InvoiceForm({ openForm }: Toggle) {
   const { register, handleSubmit, reset } = useForm<InvoiceData>();
+
+  const queryClient = useQueryClient();
+  const { mutate, isLoading: isCreating } = useMutation({
+    mutationFn: createInvoice,
+    onSuccess: () => {
+      toast.success("Invoice created and submitted successfully");
+      reset();
+      setIsOpen(false);
+      setArrOfItem([]);
+      openForm(false);
+      queryClient.invalidateQueries({
+        queryKey: ["invoice"],
+      });
+    },
+    onError: (err) => {
+      toast.error(err.message);
+    },
+  });
   const [isOpen, setIsOpen] = useState(false);
   const [arrOfItem, setArrOfItem] = useState<Item[]>([]);
 
@@ -46,17 +66,9 @@ function InvoiceForm({ openForm }: Toggle) {
       return;
     }
     const invoice = { ...data, itemPrice, isPaid: false };
-    console.log(invoice);
-
-    toast.success("Invoice created and submitted successfully");
-    reset();
-    setIsOpen(false);
-    setArrOfItem([]);
-    openForm(false);
+    mutate(invoice);
   };
   function onError(errors: Errors) {
-    console.log(errors);
-
     if (Object.keys(errors).length > 0) {
       const firstElement = errors[Object.keys(errors)[0]];
       toast.error(firstElement.message);
@@ -169,11 +181,21 @@ function InvoiceForm({ openForm }: Toggle) {
           </div>
           <div>
             <Label>Payment Term</Label>
-            <StyledInput
+            {/* <StyledInput
               {...register("paymentTerm", {
                 required: "Payment term is required",
               })}
-            />
+            /> */}
+            <select
+              className="py-[0.275rem] px-[0.5rem] bg-[#1f2138] rounded-[3px] w-full mt-[0.15rem] mb-[0.25rem] outline-0 text-[#d9daec] text-[0.675rem]"
+              id="paymentTerm"
+              {...register("paymentTerm", {
+                required: "Payment term is required",
+              })}
+            >
+              <option value="10">Next 10 days</option>
+              <option value="10">Next 30 days</option>
+            </select>
           </div>
         </div>
         <div>
@@ -213,6 +235,7 @@ function InvoiceForm({ openForm }: Toggle) {
           <button
             type="submit"
             className="p-2 mt-4 font-bold text-sm rounded-full text-white bg-[#7c5df9]"
+            disabled={isCreating}
           >
             Create Invoice
           </button>

@@ -37,6 +37,7 @@ export interface Record {
   quantity: string;
   price: string;
   id: string;
+  total: number;
 }
 export interface ModalProps {
   closeModal: () => void;

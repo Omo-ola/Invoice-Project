@@ -9,6 +9,7 @@ import { Labels } from "./Labels";
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
+  gap: .5rem;
   align-items: center;
   padding: 1.5rem;
   background-color: #1d2238;
@@ -23,21 +24,38 @@ const Container = styled.div`
   }
 `;
 
-function Card({ types }: CardProps) {
+function Card({ types, invoice }: CardProps) {
+  const date = new Date(invoice.invoiceDate);
+  const options: Intl.DateTimeFormatOptions = {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  };
+  // const total = invoice.itemPrice.map(item=> )
+  const total = invoice.itemPrice.reduce(
+    (acc: string, currentItem) =>
+      Number(acc) + Number(currentItem.total),
+    0
+  );
+
   return (
     <Container>
       <h3 className="row-start-1 row-end-1 font-semibold">
-        <span className="text-[#3b3d66]">#</span>ff453E1
+        <span className="text-[#3b3d66]">#</span>
+        {invoice.invoiceId}
       </h3>
-      <p className="row-start-2">Due 19 Aug 2021</p>
-      <p className="">Jahnsen Huang</p>
-      <p className="text-xl font-semibold">{formatCurrency(6500.9)}</p>
+      {/* <p className="row-start-2">Due {invoice.invoiceDate}</p> */}
+      <p className="row-start-2">
+        Due {new Intl.DateTimeFormat("en-GB", options).format(date)}
+      </p>
+      <p className="">{invoice.clientName}</p>
+      <p className="text-xl font-semibold">{formatCurrency(total)}</p>
       <div className="col-start-2 row-start-2 row-span-2 flex gap-4 items-center">
         <LabelContainer type={types}>
           <Labels type={types}>{types}</Labels>
         </LabelContainer>
         <Link
-          to="/invoice/id"
+          to={`/invoice/${invoice._id}`}
           className="text-[#7761e7] font-bold cursor-pointer"
         >
           <IoIosArrowForward />
