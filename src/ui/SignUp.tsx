@@ -4,17 +4,31 @@ import { Label } from "./Label";
 import { useForm } from "react-hook-form";
 import { Errors, IsignUp } from "../types/Interface";
 import toast from "react-hot-toast";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { signUp } from "../services/getUser";
 
 function SignUp() {
   const { register, handleSubmit, reset } = useForm();
   const navigate = useNavigate();
 
+
+  const { mutate, isLoading } = useMutation({
+    mutationFn: signUp,
+    onSuccess: () => {
+      toast.success("User account created successfully");
+      reset();
+    },
+    onError: (err) => {
+      toast.error(err.message);
+    },
+  });
+
   // Submit handler
   const onSubmit = (data: IsignUp) => {
     // Reset The form after collecting the data
-    console.log(data);
-    reset();
+    mutate(data);
     navigate("/login", { replace: true });
+    reset();
   };
 
   // Error handler

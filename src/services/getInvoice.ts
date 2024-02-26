@@ -14,11 +14,19 @@ export async function createInvoice(invoice: InvoiceData) {
   try {
     const response = await axios.post(
       "http://localhost:7000/api/invoices",
-      invoice
+      invoice,
+      {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }
     );
     return response.data;
   } catch (error) {
-    throw new Error("Error posting data");
+    if (error.message === "Request failed with status code 403") {
+      throw new Error("Please Login");
+    }
+    throw new Error(error.message);
   }
 }
 
@@ -34,7 +42,12 @@ export async function getOneInvoice(id: string) {
 export async function deleteOneInvoice(id: string) {
   try {
     const response = await axios.delete(
-      `http://localhost:7000/api/invoices/${id}`
+      `http://localhost:7000/api/invoices/${id}`,
+      {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }
     );
     return response;
   } catch (error) {
@@ -48,6 +61,11 @@ export async function markPaid(id: string) {
       `http://localhost:7000/api/invoices/${id}`,
       {
         status: "paid", // Set the new status here
+      },
+      {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
       }
     );
     return response;
@@ -60,7 +78,12 @@ export const editInvoice = async (id: string, data: InvoiceData) => {
   try {
     const response = await axios.put(
       `http://localhost:7000/api/invoices/${id}`,
-      data
+      data,
+      {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }
     );
     return response;
   } catch (error) {

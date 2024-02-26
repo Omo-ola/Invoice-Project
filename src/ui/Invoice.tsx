@@ -1,13 +1,12 @@
-import React from "react";
 import { formatCurrency } from "../utils/helper";
 import { Table } from "./Table";
 import { Td } from "./Td";
 import { Th } from "./Th";
 
-const Invoice = ({ invoice, ref }) => {
+const Invoice = ({ invoice }) => {
   return (
     <>
-      <article ref={ref} className="bg-[#131426] rounded-md p-4">
+      <article className="bg-[#131426] rounded-md p-4 h-auto">
         <div className="flex justify-between items-center mb-4">
           <div className="text-sm font-semibold">
             <h3>#{invoice.invoiceId}</h3>

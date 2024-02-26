@@ -4,19 +4,39 @@ import { StyledInput } from "./StyledInput";
 import { Errors, Ilogin } from "../types/Interface";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { getUser } from "../services/getUser";
 
 function Login() {
   const { register, handleSubmit, reset } = useForm();
   const navigate = useNavigate();
 
+  const {
+    mutate,
+    isSuccess,
+    data: userToken,
+  } = useMutation({
+    mutationFn: getUser,
+    onSuccess: () => {
+      toast.success("User login successfully");
+      reset();
+    },
+    onError: (err) => {
+      toast.error(err.message);
+    },
+  });
+
+  if (isSuccess) {
+    const { token, isAdmin } = userToken.data.data;
+    localStorage.setItem("admin", `${isAdmin}`);
+    localStorage.setItem("token", token);
+    navigate("/", { replace: true });
+  }
+
   // Submit handler
   const onSubmit = (data: Ilogin) => {
-    // Reset The form after collecting the data
-
-    console.log(data);
-
+    mutate(data);
     reset();
-    navigate("/", { replace: true });
   };
 
   // Error handler

@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { InvoiceData, Toggle, Item, Errors } from "../types/Interface";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createInvoice } from "../services/getInvoice";
+import { useNavigate } from "react-router-dom";
 
 export const SmallP = styled.p`
   font-size: 0.675rem;
@@ -22,6 +23,7 @@ export const SmallP = styled.p`
 
 function InvoiceForm({ openForm }: Toggle) {
   const { register, handleSubmit, reset } = useForm<InvoiceData>();
+  const navigate = useNavigate();
 
   const queryClient = useQueryClient();
   const { mutate, isLoading: isCreating } = useMutation({
@@ -37,7 +39,12 @@ function InvoiceForm({ openForm }: Toggle) {
       });
     },
     onError: (err) => {
-      toast.error(err.message);
+      if (err.message === "Please Login") {
+        toast.error(err.message);
+        navigate("/login");
+      } else {
+        toast.error(err.message);
+      }
     },
   });
   const [isOpen, setIsOpen] = useState(false);

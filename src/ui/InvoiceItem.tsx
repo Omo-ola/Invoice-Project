@@ -30,7 +30,9 @@ function InvoiceItem() {
     });
   }, []);
 
-  const isAdmin = true;
+  const isAdmin = localStorage.getItem("admin") === "true";
+
+  // const isAdmin = true;
 
   const { isLoading, data } = useQuery({
     queryKey: ["oneInvoice"],
@@ -60,13 +62,12 @@ function InvoiceItem() {
     },
   });
 
-//  const handlePrint = useReactToPrint({
-//    content: () => componentRef.current,
-//  });
-  function handle() {
-  console.log(componentRef);
-  
-}
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+  // function handle() {
+  //   console.log(componentRef);
+  // }
 
   if (isLoading) return <Spinner />;
   const { invoice } = data?.data;
@@ -84,9 +85,6 @@ function InvoiceItem() {
     console.log("Mark as read");
   }
 
-
-
-
   return (
     <section className=" bg-[#1d2238] w-full h-[100vh] pt-10  text-white pb-4 overflow-scroll flow">
       <div className="max-w-[35rem] w-[90%] m-auto">
@@ -97,45 +95,47 @@ function InvoiceItem() {
           <FaArrowLeftLong />
           Back
         </p>
-        <article className="bg-[#131426] rounded-md p-4 mb-8">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-x-4 text-sm">
-              <span className="text-lg">Status</span>
-              <LabelContainer type={`${invoice.status}`}>
-                <Labels type={`${invoice.status}`}>{invoice.status}</Labels>
-              </LabelContainer>
-            </div>
-
-            {isAdmin && (
-              <div className="flex">
-                {invoice.status === "paid" ? (
-                  ""
-                ) : (
-                  <Button type="edit" onClick={editInvoice}>
-                    Edit
-                  </Button>
-                )}
-                <Button type="delete" onClick={deleteInvoice}>
-                  Delete
-                </Button>
-                {invoice.status === "paid" ? (
-                  ""
-                ) : (
-                  <Button type="mark" onClick={markAsRead}>
-                    Mark as Paid
-                  </Button>
-                )}
+        <div ref={componentRef} className="bg-[#1d2238] p-2">
+          <article className="bg-[#131426] rounded-md p-4 mb-8">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-x-4 text-sm">
+                <span className="text-lg">Status</span>
+                <LabelContainer type={`${invoice.status}`}>
+                  <Labels type={`${invoice.status}`}>{invoice.status}</Labels>
+                </LabelContainer>
               </div>
-            )}
-          </div>
-        </article>
-        <Invoice invoice={invoice} ref={componentRef} />
+
+              {isAdmin && (
+                <div className="flex">
+                  {invoice.status === "paid" ? (
+                    ""
+                  ) : (
+                    <Button type="edit" onClick={editInvoice}>
+                      Edit
+                    </Button>
+                  )}
+                  <Button type="delete" onClick={deleteInvoice}>
+                    Delete
+                  </Button>
+                  {invoice.status === "paid" ? (
+                    ""
+                  ) : (
+                    <Button type="mark" onClick={markAsRead}>
+                      Mark as Paid
+                    </Button>
+                  )}
+                </div>
+              )}
+            </div>
+          </article>
+          <Invoice invoice={invoice} />
+        </div>
         <div className="flex justify-center">
           <button
             className="p-2 bg-[#7c5df9] my-4"
             // onClick={() => printResult()}
-            // onClick={handlePrint}
-            onClick={handle}
+            onClick={handlePrint}
+            // onClick={handle}
           >
             Print
           </button>

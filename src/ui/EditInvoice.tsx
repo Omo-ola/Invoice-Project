@@ -17,7 +17,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 
 function EditInvoice() {
   const { id } = useParams();
-  const { mutate, isLoading: isEditing } = useMutation({
+  const { mutate, isLoading: isEditing,error } = useMutation({
     mutationFn: (invoice) => editInvoice(id, invoice),
     onSuccess: () => {
       toast.success("Invoice created and Edited successfully");
@@ -29,6 +29,8 @@ function EditInvoice() {
       navigate(`/invoice/${id}`);
     },
     onError: (err) => {
+      console.log(error);
+      
       toast.error(err.message);
     },
   });
