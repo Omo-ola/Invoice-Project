@@ -90,3 +90,19 @@ export const editInvoice = async (id: string, data: InvoiceData) => {
     throw new Error("Error editing invoice");
   }
 };
+
+export const getUserInvoice = async () => {
+  try {
+    const response = await axios.get(
+      `http://localhost:7000/api/user/invoices/id`,
+      {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    throw new Error("Failed to fetch");
+  }
+};

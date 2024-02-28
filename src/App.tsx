@@ -7,6 +7,7 @@ import InvoiceItem from "./ui/InvoiceItem";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import EditInvoice from "./ui/EditInvoice";
+import UserProfile from "./ui/UserProfile";
 
 const router = createBrowserRouter([
   { path: "/", element: <Layout /> },
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
   { path: "/signup", element: <SignUp /> },
   { path: `/invoice/:id`, element: <InvoiceItem /> },
   { path: `/invoice/edit/:id`, element: <EditInvoice /> },
+  { path: `/user/profile/`, element: <UserProfile /> },
 ]);
 
 const queryClient = new QueryClient({

@@ -15,7 +15,7 @@ export interface Item {
   id: string;
 }
 
- export interface InvoiceData {
+export interface InvoiceData {
   streetAddress: string;
   billerCity: string;
   postCode: string;
@@ -31,7 +31,6 @@ export interface Item {
   projectDescription: string;
 }
 
-
 export interface Record {
   itemName: string;
   quantity: string;
@@ -44,7 +43,6 @@ export interface ModalProps {
   handleGetRecord: (record: Record) => void;
 }
 
-
 export interface Ilogin {
   email: string;
   password: string;
@@ -56,7 +54,6 @@ export interface IsignUp {
   email: string;
   password: string;
 }
-
 
 export interface ButtonProps {
   type: "edit" | "delete" | "mark" | undefined;

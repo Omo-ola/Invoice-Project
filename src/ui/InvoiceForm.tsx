@@ -72,7 +72,11 @@ function InvoiceForm({ openForm }: Toggle) {
       toast.error("Add item that contain price and quantity");
       return;
     }
-    const invoice = { ...data, itemPrice, isPaid: false };
+    const invoice = {
+      ...data,
+      itemPrice,
+      isPaid: false,
+    };
     mutate(invoice);
   };
   function onError(errors: Errors) {

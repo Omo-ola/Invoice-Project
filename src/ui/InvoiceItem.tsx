@@ -30,9 +30,7 @@ function InvoiceItem() {
     });
   }, []);
 
-  const isAdmin = localStorage.getItem("admin") === "true";
-
-  // const isAdmin = true;
+  const isAdmin = localStorage.getItem("adminToken");
 
   const { isLoading, data } = useQuery({
     queryKey: ["oneInvoice"],

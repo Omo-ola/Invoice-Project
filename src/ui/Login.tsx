@@ -27,9 +27,12 @@ function Login() {
   });
 
   if (isSuccess) {
-    const { token, isAdmin } = userToken.data.data;
-    localStorage.setItem("admin", `${isAdmin}`);
-    localStorage.setItem("token", token);
+    const { token, isAdminToken } = userToken.data.data;
+    if (isAdminToken) {
+    localStorage.setItem("adminToken", `${isAdminToken}`);
+      
+    }
+      localStorage.setItem("token", token);
     navigate("/", { replace: true });
   }
 
