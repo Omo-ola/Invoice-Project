@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { getUser } from "../services/getUser";
+import { useEffect } from "react";
 
 function Login() {
   const { register, handleSubmit, reset } = useForm();
@@ -26,11 +27,13 @@ function Login() {
     },
   });
 
-  if (isSuccess) {
-    const { token } = userToken.data.data;
-    localStorage.setItem("token", token);
-    navigate("/", { replace: true });
-  }
+  useEffect(() => {
+    if (isSuccess && userToken && userToken.data && userToken.data.data) {
+      const { token } = userToken.data.data;
+      localStorage.setItem("token", token);
+      navigate("/");
+    }
+  }, [isSuccess, userToken, navigate]);
 
   // Submit handler
   const onSubmit = (data: Ilogin) => {
