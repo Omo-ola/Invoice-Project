@@ -26,3 +26,18 @@ export async function getUser(data) {
     throw new Error(error.message);
   }
 }
+
+
+
+export async function getLoginUser() {
+  try {
+    const response = axios.get("http://localhost:7000/api/user/auth", {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+    return response;
+  } catch (error) {
+    throw new Error("Error getting user");
+  }
+}

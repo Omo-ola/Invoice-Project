@@ -40,7 +40,7 @@ function Modal({ closeModal, handleGetRecord }: ModalProps) {
   return (
     <form onSubmit={submit}>
       <div>
-        <label>Item Name</label>
+        <label className="text-black">Item Name</label>
         <StyledInput
           type="text"
           value={itemName}
@@ -48,7 +48,7 @@ function Modal({ closeModal, handleGetRecord }: ModalProps) {
         />
       </div>
       <div>
-        <label>Quantity</label>
+        <label className="text-black">Quantity</label>
         <StyledInput
           type="number"
           value={quantity}
@@ -56,7 +56,7 @@ function Modal({ closeModal, handleGetRecord }: ModalProps) {
         />
       </div>
       <div>
-        <label>Price</label>
+        <label className="text-black">Price</label>
         <StyledInput
           type="number"
           value={price}

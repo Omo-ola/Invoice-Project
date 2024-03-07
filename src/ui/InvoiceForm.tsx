@@ -92,7 +92,9 @@ function InvoiceForm({ openForm }: Toggle) {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit, onError)}>
-        <p className="text-lg font-semibold text-white mb-2">New Invoice</p>
+        <p className="text-lg font-semibold text-[var(--color-text)] mb-2">
+          New Invoice
+        </p>
         <SmallP>Bill From</SmallP>
         <div>
           <Label>Street Address</Label>
@@ -197,16 +199,17 @@ function InvoiceForm({ openForm }: Toggle) {
                 required: "Payment term is required",
               })}
             /> */}
-            <select
-              className="py-[0.275rem] px-[0.5rem] bg-[#1f2138] rounded-[3px] w-full mt-[0.15rem] mb-[0.25rem] outline-0 text-[#d9daec] text-[0.675rem]"
-              id="paymentTerm"
+            <StyledInput
+              as={"select"}
+              // className="py-[0.275rem] px-[0.5rem] bg-[#1f2138] rounded-[3px] w-full mt-[0.15rem] mb-[0.25rem] outline-0 text-[#d9daec] text-[0.675rem]"
+              // id="paymentTerm"
               {...register("paymentTerm", {
                 required: "Payment term is required",
               })}
             >
               <option value="10">Next 10 days</option>
               <option value="10">Next 30 days</option>
-            </select>
+            </StyledInput>
           </div>
         </div>
         <div>
@@ -218,7 +221,9 @@ function InvoiceForm({ openForm }: Toggle) {
           />
         </div>
 
-        <p className="text-[#d9daec] text-sm font-bold">Item List</p>
+        <p className="text-[var(--color-text-sec)] text-sm font-bold">
+          Item List
+        </p>
         <Table>
           <thead>
             <tr className="text-[#d9daec]">

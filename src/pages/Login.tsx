@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { Label } from "./Label";
-import { StyledInput } from "./StyledInput";
+import { Label } from "../ui/Label";
+import { StyledInput } from "../ui/StyledInput";
 import { Errors, Ilogin } from "../types/Interface";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
@@ -27,12 +27,8 @@ function Login() {
   });
 
   if (isSuccess) {
-    const { token, isAdminToken } = userToken.data.data;
-    if (isAdminToken) {
-    localStorage.setItem("adminToken", `${isAdminToken}`);
-      
-    }
-      localStorage.setItem("token", token);
+    const { token } = userToken.data.data;
+    localStorage.setItem("token", token);
     navigate("/", { replace: true });
   }
 
@@ -44,7 +40,6 @@ function Login() {
 
   // Error handler
   function onError(errors: Errors) {
-    console.log(errors);
     if (Object.keys(errors).length > 0) {
       const firstElement = errors[Object.keys(errors)[0]];
       toast.error(firstElement.message);
@@ -53,10 +48,10 @@ function Login() {
     }
   }
   return (
-    <div className=" bg-[#1d2238] w-full h-[100vh] pt-20  text-white">
+    <div className=" bg-[var(--bg-color-ter)] w-full h-[100vh] pt-20  text-white">
       <form
         onSubmit={handleSubmit(onSubmit, onError)}
-        className="  bg-[#131426] rounded-md p-4 max-w-[25rem] w-[90%] m-auto"
+        className="bg-[var(--bg-color-primary)] shadow-2xl rounded-md p-4 max-w-[25rem] w-[90%] m-auto"
       >
         <p className="font-bold text-2xl text-center mb-4">Login</p>
         <div className="mb-4">

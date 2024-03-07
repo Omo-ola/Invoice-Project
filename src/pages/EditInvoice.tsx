@@ -4,20 +4,26 @@ import { useNavigate, useParams } from "react-router-dom";
 import { InvoiceData, Item } from "../types/Interface";
 import toast from "react-hot-toast";
 import { editInvoice, getOneInvoice } from "../services/getInvoice";
-import Modal from "./Modal";
-import TableRow from "./TableRow";
-import { Th } from "./Th";
-import { Table } from "./Table";
-import { StyledInput } from "./StyledInput";
-import { Label } from "./Label";
-import { SmallP } from "./InvoiceForm";
+import Modal from "../ui/Modal";
+import TableRow from "../ui/TableRow";
+import { Th } from "../ui/Th";
+import { Table } from "../ui/Table";
+import { StyledInput } from "../ui/StyledInput";
+import { Label } from "../ui/Label";
+import { SmallP } from "../ui/InvoiceForm";
 import { useState } from "react";
-import Spinner from "./Spinner";
+import Spinner from "../ui/Spinner";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { useDarkMode } from "../context/DarkModeContext";
 
 function EditInvoice() {
+  const { isDark } = useDarkMode();
   const { id } = useParams();
-  const { mutate, isLoading: isEditing,error } = useMutation({
+  const {
+    mutate,
+    isLoading: isEditing,
+    error,
+  } = useMutation({
     mutationFn: (invoice) => editInvoice(id, invoice),
     onSuccess: () => {
       toast.success("Invoice created and Edited successfully");
@@ -30,7 +36,7 @@ function EditInvoice() {
     },
     onError: (err) => {
       console.log(error);
-      
+
       toast.error(err.message);
     },
   });
@@ -46,7 +52,6 @@ function EditInvoice() {
   });
 
   const invoice = data?.data?.invoice;
-
 
   const { register, handleSubmit, reset } = useForm<InvoiceData>({
     defaultValues: invoice,
@@ -76,7 +81,7 @@ function EditInvoice() {
       return;
     }
 
-    const invoice = { ...data, itemPrice};
+    const invoice = { ...data, itemPrice };
     mutate(invoice);
   };
 
@@ -93,20 +98,24 @@ function EditInvoice() {
   // fnctions
 
   return (
-    <section className="    bg-[#1d2238] w-full pt-10 h-[100vh] overflow-x-hidden overview  text-white">
+    <section className="bg-[var(--bg-color-ter)] w-full pt-10 h-[100vh] overflow-x-hidden overview  text-white">
       {isFetching ? (
         <Spinner />
       ) : (
-        <div className="max-w-[35rem] w-[90%] m-auto bg-[#10111f] p-4">
+        <div
+          className={`max-w-[35rem] w-[90%] m-auto bg-[var(--bg-color-primary)]  p-4 ${
+            isDark && "shadow-2xl"
+          }`}
+        >
           <p
-            className="flex items-center gap-1 mb-4 cursor-pointer"
+            className="flex items-center gap-1 mb-4 cursor-pointer text-[var(--color-text-white)]"
             onClick={() => navigate(`/invoice/${id}`)}
           >
             <FaArrowLeftLong />
             Back
           </p>
           <form onSubmit={handleSubmit(onSubmit, onError)}>
-            <p className="text-lg font-semibold text-white mb-2">
+            <p className="text-lg font-semibold text-[var(--color-text)] mb-2">
               Edit Invoice
             </p>
             <SmallP>Bill From</SmallP>
@@ -208,16 +217,17 @@ function EditInvoice() {
               </div>
               <div className="w-[50%]">
                 <Label>Payment Term</Label>
-                <select
-                  className="py-[0.275rem] px-[0.5rem] bg-[#1f2138] rounded-[3px] w-full mt-[0.15rem] mb-[0.25rem] outline-0 text-[#d9daec] text-[0.675rem]"
-                  id="paymentTerm"
+                <StyledInput
+                  as={"select"}
+                  // className="py-[0.275rem] px-[0.5rem] bg-[#1f2138] rounded-[3px] w-full mt-[0.15rem] mb-[0.25rem] outline-0 text-[#d9daec] text-[0.675rem]"
+                  // id="paymentTerm"
                   {...register("paymentTerm", {
                     required: "Payment term is required",
                   })}
                 >
                   <option value="10">Next 10 days</option>
                   <option value="10">Next 30 days</option>
-                </select>
+                </StyledInput>
               </div>
             </div>
 

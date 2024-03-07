@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import { FaAngleDown } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
+import { useQuery } from "@tanstack/react-query";
+import { getInvoice } from "../services/getInvoice";
 
 const Flex = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #fafeff;
+  color: var(--color-text);
 `;
 
 interface Iprops {
@@ -15,6 +17,14 @@ interface Iprops {
 }
 
 function MainNav({ setIsOpen, isOpen }: Iprops) {
+  const { isLoading, data } = useQuery({
+    queryKey: ["invoice"],
+    queryFn: getInvoice,
+  });
+
+  if (isLoading) return <></>;
+  const { invoices } = data?.data;
+
   function handleClick() {
     setIsOpen(!isOpen);
   }
@@ -22,7 +32,9 @@ function MainNav({ setIsOpen, isOpen }: Iprops) {
     <Flex>
       <div className="">
         <h3 className="font-bold text-4xl capitalize mb-2">invoices</h3>
-        <p className="text-sm font-light">There are 7 total invoices</p>
+        <p className="text-sm font-light">
+          There are {invoices.length} total invoices
+        </p>
       </div>
 
       <Flex>
@@ -38,7 +50,7 @@ function MainNav({ setIsOpen, isOpen }: Iprops) {
           <div className="p-2 rounded-full bg-white text-[#7c5df9]">
             <FaPlus />
           </div>
-          <p className="text-sm font-bold pr-2">New Invoice</p>
+          <p className="text-sm font-bold pr-2 text-white">New Invoice</p>
         </div>
       </Flex>
     </Flex>

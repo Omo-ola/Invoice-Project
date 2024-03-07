@@ -65,3 +65,8 @@ export interface ParagraphProps {
 export interface CardProps {
   types: "paid" | "pending" | "draft" | undefined;
 }
+
+
+export interface ChildrenProps {
+  children: React.ReactNode; // Assuming you are working with React
+}

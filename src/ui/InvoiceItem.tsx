@@ -17,24 +17,30 @@ import {
   markPaid,
 } from "../services/getInvoice";
 import Invoice from "./Invoice";
+import { getLoginUser } from "../services/getUser";
+import { useDarkMode } from "../context/DarkModeContext";
 
 function InvoiceItem() {
   const componentRef = useRef(null);
   const { id } = useParams();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { isDark } = useDarkMode();
 
   useEffect(() => {
     queryClient.invalidateQueries({
       queryKey: ["oneInvoice"],
     });
-  }, []);
-
-  const isAdmin = localStorage.getItem("adminToken");
+  }, [queryClient]);
 
   const { isLoading, data } = useQuery({
     queryKey: ["oneInvoice"],
     queryFn: () => getOneInvoice(id),
+  });
+
+  const { data: userData, isLoading: userLoading } = useQuery({
+    queryKey: ["loginUser"],
+    queryFn: getLoginUser,
   });
 
   const { mutate: deleteMutate } = useMutation({
@@ -63,16 +69,18 @@ function InvoiceItem() {
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
-  // function handle() {
-  //   console.log(componentRef);
-  // }
 
-  if (isLoading) return <Spinner />;
+  if (isLoading && userLoading)
+    return (
+      <div className="w-full h-full">
+        <Spinner />
+      </div>
+    );
   const { invoice } = data?.data;
+  const currentUser = userData?.data?.data;
 
   function editInvoice() {
     navigate(`/invoice/edit/${id}`);
-    console.log("Edit invoice");
   }
   function deleteInvoice() {
     deleteMutate(id);
@@ -80,30 +88,34 @@ function InvoiceItem() {
 
   function markAsRead() {
     updateInvoiceStatus(id);
-    console.log("Mark as read");
   }
 
   return (
-    <section className=" bg-[#1d2238] w-full h-[100vh] pt-10  text-white pb-4 overflow-scroll flow">
+    <section className=" bg-[var(--bg-color-ter)] w-full h-[100vh] pt-10  text-white pb-4 overflow-scroll flow">
       <div className="max-w-[35rem] w-[90%] m-auto">
         <p
-          className="flex items-center gap-1 mb-4 cursor-pointer"
+          className="flex items-center gap-1 mb-4 cursor-pointer text-[var(--color-text-white)]"
           onClick={() => navigate("/")}
         >
           <FaArrowLeftLong />
           Back
         </p>
-        <div ref={componentRef} className="bg-[#1d2238] p-2">
-          <article className="bg-[#131426] rounded-md p-4 mb-8">
+        <div ref={componentRef} className={`bg-[var(--bg-color-ter)] p-2`}>
+          <article
+            className={`bg-[var(--bg-color-primary)] ${
+              isDark && "shadow-xl"
+            } rounded-md p-4 mb-8`}
+          >
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-x-4 text-sm">
-                <span className="text-lg">Status</span>
+                <span className="text-lg text-[var(--color-text-white)]">
+                  Status
+                </span>
                 <LabelContainer type={`${invoice.status}`}>
                   <Labels type={`${invoice.status}`}>{invoice.status}</Labels>
                 </LabelContainer>
               </div>
-
-              {isAdmin && (
+              {currentUser?.isAdmin ? (
                 <div className="flex">
                   {invoice.status === "paid" ? (
                     ""
@@ -123,18 +135,28 @@ function InvoiceItem() {
                     </Button>
                   )}
                 </div>
+              ) : currentUser?._id === invoice.posterId ? (
+                <>
+                  {invoice.status === "paid" ? (
+                    ""
+                  ) : (
+                    <Button type="edit" onClick={editInvoice}>
+                      Edit
+                    </Button>
+                  )}
+                  <Button type="delete" onClick={deleteInvoice}>
+                    Delete
+                  </Button>
+                </>
+              ) : (
+                ""
               )}
             </div>
           </article>
           <Invoice invoice={invoice} />
         </div>
         <div className="flex justify-center">
-          <button
-            className="p-2 bg-[#7c5df9] my-4"
-            // onClick={() => printResult()}
-            onClick={handlePrint}
-            // onClick={handle}
-          >
+          <button className="p-2 bg-[#7c5df9] my-4" onClick={handlePrint}>
             Print
           </button>
         </div>

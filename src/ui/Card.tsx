@@ -9,13 +9,14 @@ import { Labels } from "./Labels";
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: .5rem;
+  gap: 0.5rem;
   align-items: center;
   padding: 1.5rem;
-  background-color: #1d2238;
-  color: white;
+  background-color: var(--bg-color-ter);
+  color: var(--color-text);
   border-radius: 6px;
   margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   @media (max-width: 730px) {
     display: grid;
@@ -33,8 +34,7 @@ function Card({ types, invoice }: CardProps) {
   };
   // const total = invoice.itemPrice.map(item=> )
   const total = invoice.itemPrice.reduce(
-    (acc: string, currentItem) =>
-      Number(acc) + Number(currentItem.total),
+    (acc: string, currentItem) => Number(acc) + Number(currentItem.total),
     0
   );
 

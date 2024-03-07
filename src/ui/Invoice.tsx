@@ -1,18 +1,24 @@
+import { useDarkMode } from "../context/DarkModeContext";
 import { formatCurrency } from "../utils/helper";
 import { Table } from "./Table";
 import { Td } from "./Td";
 import { Th } from "./Th";
 
 const Invoice = ({ invoice }) => {
+  const { isDark } = useDarkMode();
   return (
     <>
-      <article className="bg-[#131426] rounded-md p-4 h-auto">
+      <article
+        className={`bg-[var(--bg-color-primary)] ${
+          isDark && "shadow-xl"
+        } rounded-md p-4 h-auto`}
+      >
         <div className="flex justify-between items-center mb-4">
-          <div className="text-sm font-semibold">
+          <div className="text-sm font-semibold text-[--color-text]">
             <h3>#{invoice.invoiceId}</h3>
             <p>Graphic Design</p>
           </div>
-          <div className="text-sm text-right">
+          <div className="text-sm text-right text-[--color-text]">
             <p>{invoice.streetAddress}</p>
             <p>{invoice.billerCity}</p>
             <p>{invoice.postCode}</p>
@@ -23,22 +29,30 @@ const Invoice = ({ invoice }) => {
         <main className="flex justify-between gap-2 mb-8">
           <div className="">
             <article className="mb-6">
-              <p className="text-sm font-bold py-1 text-[#c9c5c5]">
+              <p className="text-sm font-bold py-1 text-[var(--color-text-ter)]">
                 Invoice Date
               </p>
-              <h3 className="text-sm font-bold">{invoice.invoiceDate}</h3>
+              <h3 className="text-sm font-bold text-[var(--color-text-white)]">
+                {invoice.invoiceDate}
+              </h3>
             </article>
             <article>
-              <p className="text-sm font-bold py-1 text-[#c9c5c5]">
+              <p className="text-sm font-bold  py-1 text-[var(--color-text-ter)]">
                 Payment Date
               </p>
-              <h3 className="text-sm font-bold">{invoice.invoiceDate}</h3>
+              <h3 className="text-sm font-bold text-[var(--color-text-white)]">
+                {invoice.invoiceDate}
+              </h3>
             </article>
           </div>
           <div className="">
-            <p className="text-sm font-bold py-1 text-[#c9c5c5]">Bill To</p>
-            <h3 className="text-sm font-bold">{invoice.clientName}</h3>
-            <div className="text-sm text-[#c9c5c5]">
+            <p className="text-sm font-bold  py-1 text-[var(--color-text-ter)]">
+              Bill To
+            </p>
+            <h3 className="text-sm font-bold text-[var(--color-text-white)]">
+              {invoice.clientName}
+            </h3>
+            <div className="text-sm text-[var(--color-text-ter)]">
               <p>{invoice.clientAddress}</p>
               <p>{invoice.clientCity}</p>
               <p>{invoice.clientPostCode}</p>
@@ -46,14 +60,18 @@ const Invoice = ({ invoice }) => {
             </div>
           </div>
           <div className="">
-            <p className="text-sm font-bold py-1 text-[#c9c5c5]">Sent To</p>
-            <h3 className="text-sm font-bold">{invoice.clientEmail}</h3>
+            <p className="text-sm font-bold  py-1 text-[var(--color-text-ter)]">
+              Sent To
+            </p>
+            <h3 className="text-sm font-bold text-[var(--color-text-white)]">
+              {invoice.clientEmail}
+            </h3>
           </div>
         </main>
-        <div className="w-[98%] m-auto bg-[#1d2238] rounded-md">
+        <div className={`w-[98%] m-auto bg-[var(--bg-color-ter)] ${isDark && "shadow-2xl"} rounded-md`}>
           <Table>
             <thead className="p-2">
-              <tr className="text-[#d9daec]">
+              <tr className="text-[var(--color-text-sec)]">
                 <Th>Item Name</Th>
                 <Th>Qty</Th>
                 <Th>Price</Th>
@@ -63,7 +81,7 @@ const Invoice = ({ invoice }) => {
             <tbody>
               {invoice.itemPrice.map((item) => {
                 return (
-                  <tr className="text-[#d9daec]" key={item.id}>
+                  <tr className="text-[var(--color-text-sec)]" key={item.id}>
                     <Td>{item.itemName}</Td>
                     <Td>{item.quantity}</Td>
                     <Td>{formatCurrency(Number(item.price))}</Td>

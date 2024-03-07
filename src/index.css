@@ -2,15 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-primary: #7c5df9;
+  --color-white: white;
+  --tab-bg-green: rgba(46, 195, 153, 0.2);
+  --tab-bg-yellow: rgba(221, 141, 26, 0.2);
+  --tab-bg-grey: rgba(237, 239, 255, 0.2);
+  --tab-text-green: #2ec399;
+  --tab-text-yellow: #f0880d;
+  --tab-text-white: #edefff;
+
+  &,
+  &.dark-mode {
+    --bg-color-primary: #131426;
+    --bg-color-sec: #10111f;
+    --bg-color-ter: #1d2238;
+    --input-bg :#1f2138 ;
+    --text-color-primary: #3b3d66;
+    --color-text: #fafeff;
+    --color-text-sec: #d9daec;
+    --color-text-ter :#c9c5c5;
+    --color-text-white : white;
+  }
+
+  &.light-mode {
+    --bg-color-primary: white;
+    --bg-color-sec: rgb(255, 255, 245);
+    --bg-color-ter: rgba(255, 255, 255, 0.9);
+    --text-color-primary: #3b3d66;
+    --color-text: #0d0d1a;
+    --color-text-sec: #0d0d1a;
+    --input-bg :white ;
+    --color-text-ter :#05050a;
+    --color-text-white : Black;
+
+
+  }
+}
+
 body {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
 }
 
-:root {
-  --color-primary: #7c5df9;
-}
 .overview::-webkit-scrollbar {
   height: 5px;
   width: 1px;

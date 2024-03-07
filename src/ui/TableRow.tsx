@@ -13,8 +13,6 @@ function TableRow({ item, setArrOfItem }) {
     toast.success("Item deleted Successfully");
   }
 
- 
-
   return (
     <>
       <tr>
@@ -28,13 +26,13 @@ function TableRow({ item, setArrOfItem }) {
           <StyledInput value={price} readOnly />
         </Td>
         <Td>
-          <p className="text-[#d9daec]">
+          <p className="text-[var(--color-text-sec)]">
             {formatCurrency(Number(quantity) * Number(price))}
           </p>
         </Td>
         <Td first="">
           <div
-            className="text-[#d9daec] cursor-pointer"
+            className="text-[var(--color-text-sec)] cursor-pointer"
             onClick={() => handleDelete()}
           >
             <MdDelete />
