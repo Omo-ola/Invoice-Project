@@ -13,17 +13,17 @@ export async function signUp(user: IsignUp) {
   try {
     const response = await axios.post(`${address}api/user`, user);
     return response.data;
-  } catch (error) {
+  } catch (error:any) {
     throw new Error(error.message);
   }
 }
 
 
-export async function getUser(data) {
+export async function getUser(data:any) {
   try {
     const response = axios.post(`${address}api/login`, data);
     return response;
-  } catch (error) {
+  } catch (error:any) {
     throw new Error(error.message);
   }
 }

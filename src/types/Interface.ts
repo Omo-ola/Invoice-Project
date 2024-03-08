@@ -29,6 +29,8 @@ export interface InvoiceData {
   invoiceDate: string;
   paymentTerm: string;
   projectDescription: string;
+  invoiceId: string;
+  status: string;
 }
 
 export interface Record {
@@ -64,9 +66,9 @@ export interface ParagraphProps {
   type?: "paid" | "pending" | "draft";
 }
 export interface CardProps {
-  types: "paid" | "pending" | "draft" | undefined;
+  types?: "paid" | "pending" | "draft";
+  invoice: any;
 }
-
 
 export interface ChildrenProps {
   children: React.ReactNode; // Assuming you are working with React

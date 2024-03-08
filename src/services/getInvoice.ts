@@ -7,7 +7,7 @@ export async function getInvoice() {
   try {
     const response = axios.get(`${address}api/invoices`);
     return response;
-  } catch (error) {
+  } catch (error:any) {
     throw new Error("Error getting data");
   }
 }
@@ -20,7 +20,7 @@ export async function createInvoice(invoice: InvoiceData) {
       },
     });
     return response.data;
-  } catch (error) {
+  } catch (error:any) {
     if (error.message === "Request failed with status code 403") {
       throw new Error("Please Login");
     }
@@ -32,7 +32,7 @@ export async function getOneInvoice(id: string) {
   try {
     const response = axios.get(`${address}api/invoices/${id}`);
     return response;
-  } catch (error) {
+  } catch (error:any) {
     throw new Error("Error getting data");
   }
 }
@@ -45,7 +45,7 @@ export async function deleteOneInvoice(id: string) {
       },
     });
     return response;
-  } catch (error) {
+  } catch (error:any) {
     throw new Error("Error deleting data");
   }
 }

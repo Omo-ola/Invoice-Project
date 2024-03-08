@@ -53,6 +53,7 @@ function Login() {
   return (
     <div className=" bg-[var(--bg-color-ter)] w-full h-[100vh] pt-20  text-white">
       <form
+        // @ts-ignore
         onSubmit={handleSubmit(onSubmit, onError)}
         className="bg-[var(--bg-color-primary)] shadow-2xl rounded-md p-4 max-w-[25rem] w-[90%] m-auto"
       >

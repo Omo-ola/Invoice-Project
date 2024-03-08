@@ -34,7 +34,7 @@ function Card({ types, invoice }: CardProps) {
   };
   // const total = invoice.itemPrice.map(item=> )
   const total = invoice.itemPrice.reduce(
-    (acc: string, currentItem) => Number(acc) + Number(currentItem.total),
+    (acc: string, currentItem:any) => Number(acc) + Number(currentItem.total),
     0
   );
 

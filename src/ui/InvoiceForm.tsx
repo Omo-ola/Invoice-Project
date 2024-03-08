@@ -26,6 +26,7 @@ function InvoiceForm({ openForm }: Toggle) {
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
+  // @ts-ignore
   const { mutate, isLoading: isCreating } = useMutation({
     mutationFn: createInvoice,
     onSuccess: () => {

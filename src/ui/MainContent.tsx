@@ -5,12 +5,13 @@ import Spinner from "./Spinner";
 import { InvoiceData } from "../types/Interface";
 
 function MainContent() {
-  const { isLoading, data, error } = useQuery({
+  const { isLoading, data } = useQuery({
     queryKey: ["invoice"],
     queryFn: getInvoice,
   });
 
   if (isLoading) return <Spinner />;
+  // @ts-ignore
   const { invoices } = data?.data;
 
   return (
@@ -22,7 +23,8 @@ function MainContent() {
       ) : (
         invoices.map((invoice: InvoiceData) => (
           <Card
-            types={invoice.status}
+            // @ts-ignore
+            types={`${invoice.status}`}
             key={invoice.invoiceId}
             invoice={invoice}
           ></Card>

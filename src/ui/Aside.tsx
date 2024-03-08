@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 function Aside() {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+  // @ts-ignore
   const { isDark, toggleDarkMode } = useDarkMode();
 
   return (

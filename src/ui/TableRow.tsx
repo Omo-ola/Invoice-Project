@@ -5,7 +5,7 @@ import { formatCurrency } from "../utils/helper";
 import toast from "react-hot-toast";
 import { Item } from "../types/Interface";
 
-function TableRow({ item, setArrOfItem }) {
+function TableRow({ item, setArrOfItem }:any) {
   const { itemName, quantity, price, id } = item;
 
   function handleDelete() {

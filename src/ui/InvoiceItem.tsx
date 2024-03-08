@@ -25,16 +25,12 @@ function InvoiceItem() {
   const { id } = useParams();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  // @ts-ignore
   const { isDark } = useDarkMode();
-
-  useEffect(() => {
-    queryClient.invalidateQueries({
-      queryKey: ["oneInvoice"],
-    });
-  }, [queryClient]);
 
   const { isLoading, data } = useQuery({
     queryKey: ["oneInvoice"],
+    // @ts-ignore
     queryFn: () => getOneInvoice(id),
   });
 
@@ -42,8 +38,9 @@ function InvoiceItem() {
     queryKey: ["loginUser"],
     queryFn: getLoginUser,
   });
-
+  // @ts-ignore
   const { mutate: deleteMutate, isLoading: isDeleting } = useMutation({
+    // @ts-ignore
     mutationFn: (value) => deleteOneInvoice(value),
     onSuccess: () => {
       toast.success("Invoice deleted");
@@ -54,6 +51,7 @@ function InvoiceItem() {
     },
   });
   const { mutate: updateInvoiceStatus } = useMutation({
+    // @ts-ignore
     mutationFn: (invoiceId) => markPaid(invoiceId),
     onSuccess: () => {
       toast.success("Invoice status updated");
@@ -66,6 +64,12 @@ function InvoiceItem() {
     },
   });
 
+  useEffect(() => {
+    queryClient.invalidateQueries({
+      queryKey: ["oneInvoice"],
+    });
+  }, [queryClient]);
+
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
@@ -76,6 +80,8 @@ function InvoiceItem() {
         <Spinner />
       </div>
     );
+
+  //@ts-ignore
   const { invoice } = data?.data;
   const currentUser = userData?.data?.data;
 
@@ -83,10 +89,12 @@ function InvoiceItem() {
     navigate(`/invoice/edit/${id}`);
   }
   function deleteInvoice() {
+    //@ts-ignore
     deleteMutate(id);
   }
 
   function markAsRead() {
+    //@ts-ignore
     updateInvoiceStatus(id);
   }
 
@@ -111,7 +119,9 @@ function InvoiceItem() {
                 <span className="text-lg text-[var(--color-text-white)]">
                   Status
                 </span>
+                {/* @ts-ignore */}
                 <LabelContainer type={`${invoice.status}`}>
+                  {/* @ts-ignore */}
                   <Labels type={`${invoice.status}`}>{invoice.status}</Labels>
                 </LabelContainer>
               </div>

@@ -4,7 +4,7 @@ import { Label } from "../ui/Label";
 import { useForm } from "react-hook-form";
 import { Errors, IsignUp } from "../types/Interface";
 import toast from "react-hot-toast";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { signUp } from "../services/getUser";
 
 function SignUp() {
@@ -42,6 +42,7 @@ function SignUp() {
   return (
     <div className=" bg-[var(--bg-color-ter)] w-full h-[100vh] pt-20  text-white">
       <form
+        // @ts-ignore
         onSubmit={handleSubmit(onSubmit, onError)}
         className="  bg-[var(--bg-color-primary)] rounded-md p-4 max-w-[25rem] w-[90%] shadow-2xl m-auto"
       >

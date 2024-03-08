@@ -4,7 +4,8 @@ import { Table } from "./Table";
 import { Td } from "./Td";
 import { Th } from "./Th";
 
-const Invoice = ({ invoice }) => {
+const Invoice = ({ invoice }: any) => {
+  // @ts-ignore
   const { isDark } = useDarkMode();
   return (
     <>
@@ -68,7 +69,11 @@ const Invoice = ({ invoice }) => {
             </h3>
           </div>
         </main>
-        <div className={`w-[98%] m-auto bg-[var(--bg-color-ter)] ${isDark && "shadow-2xl"} rounded-md`}>
+        <div
+          className={`w-[98%] m-auto bg-[var(--bg-color-ter)] ${
+            isDark && "shadow-2xl"
+          } rounded-md`}
+        >
           <Table>
             <thead className="p-2">
               <tr className="text-[var(--color-text-sec)]">
@@ -79,7 +84,7 @@ const Invoice = ({ invoice }) => {
               </tr>
             </thead>
             <tbody>
-              {invoice.itemPrice.map((item) => {
+              {invoice.itemPrice.map((item: any) => {
                 return (
                   <tr className="text-[var(--color-text-sec)]" key={item.id}>
                     <Td>{item.itemName}</Td>
@@ -97,6 +102,7 @@ const Invoice = ({ invoice }) => {
               {formatCurrency(
                 Number(
                   invoice.itemPrice.reduce(
+                  // @ts-ignore
                     (acc: number, currentItem: Record) =>
                       Number(acc) + Number(currentItem.total),
                     0
