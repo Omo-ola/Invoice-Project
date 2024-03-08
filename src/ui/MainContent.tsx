@@ -16,7 +16,7 @@ function MainContent() {
   return (
     <div className="mt-10">
       {invoices.length < 1 ? (
-        <p className="text-4xl font-bold text-white pt-10">
+        <p className="text-4xl font-bold text-[var(--color-text-white)] pt-10">
           No invoice yet, Click the button above to create an invoice
         </p>
       ) : (

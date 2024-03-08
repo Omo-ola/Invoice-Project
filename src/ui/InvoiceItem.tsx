@@ -43,7 +43,7 @@ function InvoiceItem() {
     queryFn: getLoginUser,
   });
 
-  const { mutate: deleteMutate } = useMutation({
+  const { mutate: deleteMutate, isLoading: isDeleting } = useMutation({
     mutationFn: (value) => deleteOneInvoice(value),
     onSuccess: () => {
       toast.success("Invoice deleted");
@@ -144,7 +144,11 @@ function InvoiceItem() {
                       Edit
                     </Button>
                   )}
-                  <Button type="delete" onClick={deleteInvoice}>
+                  <Button
+                    type="delete"
+                    disabled={isDeleting}
+                    onClick={deleteInvoice}
+                  >
                     Delete
                   </Button>
                 </>

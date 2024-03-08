@@ -57,6 +57,7 @@ export interface IsignUp {
 
 export interface ButtonProps {
   type: "edit" | "delete" | "mark" | undefined;
+  disabled?: boolean;
 }
 
 export interface ParagraphProps {
@@ -70,3 +71,7 @@ export interface CardProps {
 export interface ChildrenProps {
   children: React.ReactNode; // Assuming you are working with React
 }
+// export interface ButtonProp {
+//   disabled?: boolean; // Make it optional if it's not always present
+//   // Other props...
+// }

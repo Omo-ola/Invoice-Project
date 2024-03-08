@@ -12,17 +12,28 @@
   --tab-text-yellow: #f0880d;
   --tab-text-white: #edefff;
 
-  &,
+  & {
+    --bg-color-primary: #131426;
+    --bg-color-sec: #10111f;
+    --bg-color-ter: #1d2238;
+    --input-bg: #1f2138;
+    --text-color-primary: #3b3d66;
+    --color-text: #fafeff;
+    --color-text-sec: #d9daec;
+    --color-text-ter: #c9c5c5;
+    --color-text-white: white;
+  }
+
   &.dark-mode {
     --bg-color-primary: #131426;
     --bg-color-sec: #10111f;
     --bg-color-ter: #1d2238;
-    --input-bg :#1f2138 ;
+    --input-bg: #1f2138;
     --text-color-primary: #3b3d66;
     --color-text: #fafeff;
     --color-text-sec: #d9daec;
-    --color-text-ter :#c9c5c5;
-    --color-text-white : white;
+    --color-text-ter: #c9c5c5;
+    --color-text-white: white;
   }
 
   &.light-mode {
@@ -32,11 +43,9 @@
     --text-color-primary: #3b3d66;
     --color-text: #0d0d1a;
     --color-text-sec: #0d0d1a;
-    --input-bg :white ;
-    --color-text-ter :#05050a;
-    --color-text-white : Black;
-
-
+    --input-bg: white;
+    --color-text-ter: #05050a;
+    --color-text-white: Black;
   }
 }
 

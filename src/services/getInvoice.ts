@@ -1,9 +1,11 @@
 import axios from "axios";
 import { InvoiceData } from "../types/Interface";
 
+const address = "https://invoice-api-1.onrender.com/";
+
 export async function getInvoice() {
   try {
-    const response = axios.get("http://localhost:7000/api/invoices");
+    const response = axios.get(`${address}api/invoices`);
     return response;
   } catch (error) {
     throw new Error("Error getting data");
@@ -12,15 +14,11 @@ export async function getInvoice() {
 
 export async function createInvoice(invoice: InvoiceData) {
   try {
-    const response = await axios.post(
-      "http://localhost:7000/api/invoices",
-      invoice,
-      {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      }
-    );
+    const response = await axios.post(`${address}api/invoices`, invoice, {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    });
     return response.data;
   } catch (error) {
     if (error.message === "Request failed with status code 403") {
@@ -32,7 +30,7 @@ export async function createInvoice(invoice: InvoiceData) {
 
 export async function getOneInvoice(id: string) {
   try {
-    const response = axios.get(`http://localhost:7000/api/invoices/${id}`);
+    const response = axios.get(`${address}api/invoices/${id}`);
     return response;
   } catch (error) {
     throw new Error("Error getting data");
@@ -41,14 +39,11 @@ export async function getOneInvoice(id: string) {
 
 export async function deleteOneInvoice(id: string) {
   try {
-    const response = await axios.delete(
-      `http://localhost:7000/api/invoices/${id}`,
-      {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      }
-    );
+    const response = await axios.delete(`${address}api/invoices/${id}`, {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    });
     return response;
   } catch (error) {
     throw new Error("Error deleting data");
@@ -58,7 +53,7 @@ export async function deleteOneInvoice(id: string) {
 export async function markPaid(id: string) {
   try {
     const response = await axios.put(
-      `http://localhost:7000/api/invoices/${id}`,
+      `${address}api/invoices/${id}`,
       {
         status: "paid", // Set the new status here
       },
@@ -76,15 +71,11 @@ export async function markPaid(id: string) {
 
 export const editInvoice = async (id: string, data: InvoiceData) => {
   try {
-    const response = await axios.put(
-      `http://localhost:7000/api/invoices/${id}`,
-      data,
-      {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      }
-    );
+    const response = await axios.put(`${address}api/invoices/${id}`, data, {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    });
     return response;
   } catch (error) {
     throw new Error("Error editing invoice");
@@ -93,14 +84,11 @@ export const editInvoice = async (id: string, data: InvoiceData) => {
 
 export const getUserInvoice = async () => {
   try {
-    const response = await axios.get(
-      `http://localhost:7000/api/user/invoices/id`,
-      {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      }
-    );
+    const response = await axios.get(`${address}api/user/invoices/id`, {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    });
     return response;
   } catch (error) {
     throw new Error("Failed to fetch");

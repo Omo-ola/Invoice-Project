@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import InvoiceItem from "./ui/InvoiceItem";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import EditInvoice from "./pages/EditInvoice";
 import UserProfile from "./ui/UserProfile";
 import PageNotFound from "./ui/PageNotFound";
@@ -26,7 +26,7 @@ function App() {
     <>
       <DarkModeProvider>
         <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen={false}></ReactQueryDevtools>
+          {/* <ReactQueryDevtools initialIsOpen={false}></ReactQueryDevtools> */}
 
           <BrowserRouter>
             <Routes>
