@@ -3,12 +3,12 @@ import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
 const DarkModeContext = createContext("dark-mode");
 
-function DarkModeProvider({ children }:any) {
-  const [isDark, setIsDark] = useLocalStorageState(false, "isDarkMode");
+function DarkModeProvider({ children }: any) {
+  const [isDark, setIsDark] = useLocalStorageState(true, "isDarkMode");
 
   useEffect(
     function () {
-      if (isDark) {
+      if (!isDark) {
         document.documentElement.classList.add("light-mode");
         document.documentElement.classList.remove("dark-mode");
       } else {
@@ -19,7 +19,7 @@ function DarkModeProvider({ children }:any) {
     [isDark]
   );
   function toggleDarkMode() {
-    setIsDark((isDark:any) => !isDark);
+    setIsDark((isDark: any) => !isDark);
   }
 
   return (

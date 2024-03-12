@@ -195,15 +195,8 @@ function InvoiceForm({ openForm }: Toggle) {
           </div>
           <div>
             <Label>Payment Term</Label>
-            {/* <StyledInput
-              {...register("paymentTerm", {
-                required: "Payment term is required",
-              })}
-            /> */}
             <StyledInput
               as={"select"}
-              // className="py-[0.275rem] px-[0.5rem] bg-[#1f2138] rounded-[3px] w-full mt-[0.15rem] mb-[0.25rem] outline-0 text-[#d9daec] text-[0.675rem]"
-              // id="paymentTerm"
               {...register("paymentTerm", {
                 required: "Payment term is required",
               })}
@@ -262,7 +255,7 @@ function InvoiceForm({ openForm }: Toggle) {
       <section
         className={`absolute bottom-0 left-[20%] ${
           isOpen ? "" : "translate-x-[-600px]"
-        } bg-white px-8 py-4`}
+        } bg-white px-8 py-4 shadow-black`}
       >
         <Modal closeModal={closeModal} handleGetRecord={handleGetRecord} />
       </section>

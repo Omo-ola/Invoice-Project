@@ -10,11 +10,13 @@ import { signUp } from "../services/getUser";
 function SignUp() {
   const { register, handleSubmit, reset } = useForm();
   const navigate = useNavigate();
-
+  // @ts-ignore
   const { mutate } = useMutation({
+    // const mutate = useMutation({
     mutationFn: signUp,
     onSuccess: () => {
       toast.success("User account created successfully");
+      navigate("/login", { replace: true });
       reset();
     },
     onError: (err) => {
@@ -24,10 +26,7 @@ function SignUp() {
 
   // Submit handler
   const onSubmit = (data: IsignUp) => {
-    // Reset The form after collecting the data
     mutate(data);
-    navigate("/login", { replace: true });
-    reset();
   };
 
   // Error handler
@@ -83,18 +82,20 @@ function SignUp() {
             })}
           />
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-2 mb-6">
           <button
             type="submit"
-            className="p-2 mt-4 font-semibold text-lg rounded-md text-white bg-[#7c5df9] flex justify-center"
+            className="py-2 px-4 mt-4 font-semibold text-sm text-white bg-[#7c5df9] flex justify-center"
           >
             Sign Up
           </button>
         </div>
 
         <div className="flex justify-between items-center my-2">
-          <p className="text-sm text-[#b8b9b9]">Already have an account</p>
-          <Link to="/Login" className="text-[#7c5df9]">
+          <p className="text-[.67rem] text-[#b8b9b9]">
+            Already have an account
+          </p>
+          <Link to="/Login" className="text-[#7c5df9] text-[.67rem]">
             Login
           </Link>
         </div>

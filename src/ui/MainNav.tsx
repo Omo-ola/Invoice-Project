@@ -4,11 +4,34 @@ import { FaPlus } from "react-icons/fa6";
 import { useQuery } from "@tanstack/react-query";
 import { getInvoice } from "../services/getInvoice";
 
-const Flex = styled.div`
+interface Iflex {
+  wrap?: string;
+}
+
+const Flex = styled.div<Iflex>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: var(--color-text);
+  gap: ${(props) => {
+    switch (props.wrap) {
+      case "true":
+        return "2rem 0";
+      default:
+        return "0";
+    }
+  }};
+  flex-wrap: ${(props) => {
+    switch (props.wrap) {
+      case "true":
+        return "wrap";
+      default:
+        return "nowrap";
+    }
+  }};
+  @media (max-width: 600px) {
+    justify-content: center;
+  }
 `;
 
 interface Iprops {
@@ -29,8 +52,8 @@ function MainNav({ setIsOpen, isOpen }: Iprops) {
     setIsOpen(!isOpen);
   }
   return (
-    <Flex>
-      <div className="">
+    <Flex wrap="true">
+      <div className="text-center">
         <h3 className="font-bold text-4xl capitalize mb-2">invoices</h3>
         <p className="text-sm font-light">
           There are {invoices.length} total invoices

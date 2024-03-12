@@ -12,14 +12,14 @@ const Invoice = ({ invoice }: any) => {
       <article
         className={`bg-[var(--bg-color-primary)] ${
           isDark && "shadow-xl"
-        } rounded-md p-4 h-auto`}
+        } rounded-md sm:p-4 p-2 h-auto`}
       >
         <div className="flex justify-between items-center mb-4">
-          <div className="text-sm font-semibold text-[--color-text]">
+          <div className="sm:text-sm text-[.75rem] font-semibold text-[--color-text]">
             <h3>#{invoice.invoiceId}</h3>
             <p>Graphic Design</p>
           </div>
-          <div className="text-sm text-right text-[--color-text]">
+          <div className="sm:text-sm text-[.75rem] text-right text-[--color-text]">
             <p>{invoice.streetAddress}</p>
             <p>{invoice.billerCity}</p>
             <p>{invoice.postCode}</p>
@@ -27,7 +27,7 @@ const Invoice = ({ invoice }: any) => {
           </div>
         </div>
 
-        <main className="flex justify-between gap-2 mb-8">
+        <main className="flex justify-between gap-2 flex-wrap sm:flex-nowrap mb-8">
           <div className="">
             <article className="mb-6">
               <p className="text-sm font-bold py-1 text-[var(--color-text-ter)]">
@@ -70,7 +70,7 @@ const Invoice = ({ invoice }: any) => {
           </div>
         </main>
         <div
-          className={`w-[98%] m-auto bg-[var(--bg-color-ter)] ${
+          className={`sm:w-[98%] w-full m-auto bg-[var(--bg-color-ter)] ${
             isDark && "shadow-2xl"
           } rounded-md`}
         >
@@ -102,7 +102,7 @@ const Invoice = ({ invoice }: any) => {
               {formatCurrency(
                 Number(
                   invoice.itemPrice.reduce(
-                  // @ts-ignore
+                    // @ts-ignore
                     (acc: number, currentItem: Record) =>
                       Number(acc) + Number(currentItem.total),
                     0

@@ -38,7 +38,6 @@ function Login() {
   // Submit handler
   const onSubmit = (data: Ilogin) => {
     mutate(data);
-    reset();
   };
 
   // Error handler
@@ -76,20 +75,20 @@ function Login() {
             })}
           />
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-2 mb-6">
           <button
             type="submit"
-            className="p-2 mt-4 font-semibold text-lg rounded-md text-white bg-[#7c5df9] flex justify-center"
+            className="py-2 px-4 mt-4 font-semibold text-sm text-white bg-[#7c5df9] flex justify-center"
           >
             Login
           </button>
         </div>
 
         <div className="flex justify-between items-center my-2">
-          <p className="text-sm text-[#b8b9b9]">
+          <p className="text-[.67rem] text-[#b8b9b9]">
             Doesn't have an account yet ?
           </p>
-          <Link to="/signUp" className="text-[#7c5df9]">
+          <Link to="/signUp" className="text-[#7c5df9] text-[.67rem]">
             Sign Up
           </Link>
         </div>

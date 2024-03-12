@@ -18,4 +18,8 @@ export const Button = styled.p<ButtonProps>`
   }};
   cursor: pointer;
   margin-right: 5px;
+  @media only screen and (max-width: 600px) {
+    padding: 0.25rem 0.45rem;
+    font-size: 12px;
+  }
 `;

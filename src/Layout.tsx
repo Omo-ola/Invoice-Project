@@ -14,7 +14,9 @@ function Layout() {
 
       <section
         className={`absolute transition-all bg-[var(--bg-color-sec)] h-[100vh] overflow-x-hidden overview z-50 inset-0 ${
-          isOpen ? "translate-x-[4rem]" : "translate-x-[-30rem] shadow-2xl"
+          isOpen
+            ? "md:translate-x-[4rem] translate-x-0"
+            : "translate-x-[-30rem] shadow-2xl"
         } w-[400px] rounded-r-[2rem] px-4 pl-10 py-4`}
       >
         <InvoiceForm openForm={setIsOpen} />
