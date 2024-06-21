@@ -1,9 +1,15 @@
 import { createContext, useContext, useEffect } from "react";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
+import { ChildrenProps } from "../types/Interface";
+export type DarkModeContextType = {
+  isDark: boolean;
+  toggleDarkMode: () => void;
+};
+const DarkModeContext = createContext<DarkModeContextType | undefined>(
+  undefined
+);
 
-const DarkModeContext = createContext("dark-mode");
-
-function DarkModeProvider({ children }: any) {
+function DarkModeProvider({ children }: ChildrenProps) {
   const [isDark, setIsDark] = useLocalStorageState(true, "isDarkMode");
 
   useEffect(
@@ -19,17 +25,14 @@ function DarkModeProvider({ children }: any) {
     [isDark]
   );
   function toggleDarkMode() {
-    setIsDark((isDark: any) => !isDark);
+    setIsDark((isDark: string) => !isDark);
   }
-
   return (
-    // @ts-ignore
     <DarkModeContext.Provider value={{ isDark, toggleDarkMode }}>
       {children}
     </DarkModeContext.Provider>
   );
 }
-
 function useDarkMode() {
   const context = useContext(DarkModeContext);
   if (context === undefined)

@@ -12,6 +12,7 @@ import PageNotFound from "./ui/PageNotFound";
 import AppLayout from "./AppLayout";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import { DarkModeProvider } from "./context/DarkModeContext";
+import { FilterProvider } from "./context/FilterContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,53 +25,55 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <>
-      <DarkModeProvider>
-        <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen={false}></ReactQueryDevtools>
+      <FilterProvider>
+        <DarkModeProvider>
+          <QueryClientProvider client={queryClient}>
+            <ReactQueryDevtools initialIsOpen={false}></ReactQueryDevtools>
 
-          <BrowserRouter>
-            <Routes>
-              <Route
-                element={
-                  <ProtectedRoute>
-                    <AppLayout />
-                  </ProtectedRoute>
-                }
-              >
-                <Route index element={<Navigate replace to="/home" />} />
-                <Route path="/home" element={<Layout />} />
-                <Route path="/invoice/:id" element={<InvoiceItem />} />
-                <Route path="/invoice/edit/:id" element={<EditInvoice />} />
-                <Route path="/user/profile/" element={<UserProfile />} />
-              </Route>
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="*" element={<PageNotFound />} />
-            </Routes>
-          </BrowserRouter>
+            <BrowserRouter>
+              <Routes>
+                <Route
+                  element={
+                    <ProtectedRoute>
+                      <AppLayout />
+                    </ProtectedRoute>
+                  }
+                >
+                  <Route index element={<Navigate replace to="/home" />} />
+                  <Route path="/home" element={<Layout />} />
+                  <Route path="/invoice/:id" element={<InvoiceItem />} />
+                  <Route path="/invoice/edit/:id" element={<EditInvoice />} />
+                  <Route path="/user/profile/" element={<UserProfile />} />
+                </Route>
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="*" element={<PageNotFound />} />
+              </Routes>
+            </BrowserRouter>
 
-          <Toaster
-            position="top-center"
-            gutter={12}
-            containerStyle={{ margin: "8px" }}
-            toastOptions={{
-              success: {
-                duration: 2500,
-              },
-              error: {
-                duration: 3000,
-              },
-              style: {
-                fontSize: "16px",
-                maxWidth: "500px",
-                padding: "16px 24px",
-                backgroundColor: "white",
-                color: "black",
-              },
-            }}
-          />
-        </QueryClientProvider>
-      </DarkModeProvider>
+            <Toaster
+              position="top-center"
+              gutter={12}
+              containerStyle={{ margin: "8px" }}
+              toastOptions={{
+                success: {
+                  duration: 2500,
+                },
+                error: {
+                  duration: 3000,
+                },
+                style: {
+                  fontSize: "16px",
+                  maxWidth: "500px",
+                  padding: "16px 24px",
+                  backgroundColor: "white",
+                  color: "black",
+                },
+              }}
+            />
+          </QueryClientProvider>
+        </DarkModeProvider>
+      </FilterProvider>
     </>
   );
 }

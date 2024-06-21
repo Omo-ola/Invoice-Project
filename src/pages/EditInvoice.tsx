@@ -17,7 +17,6 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { useDarkMode } from "../context/DarkModeContext";
 
 function EditInvoice() {
-  // @ts-ignore
   const { isDark } = useDarkMode();
   const { id } = useParams();
   const {
@@ -39,7 +38,6 @@ function EditInvoice() {
     },
     onError: (err) => {
       console.log(error);
-
       toast.error(err.message);
     },
   });
@@ -50,7 +48,7 @@ function EditInvoice() {
   });
 
   const { isLoading: isFetching, data } = useQuery({
-    queryKey: ["oneInvoice"],
+    queryKey: ["oneInvoice", id],
     // @ts-ignore
     queryFn: () => getOneInvoice(id),
   });
@@ -89,7 +87,6 @@ function EditInvoice() {
     // @ts-ignore
     mutate(invoice);
   };
-  // @ts-ignore
   function onError(errors: Errors) {
     console.log(errors);
     if (Object.keys(errors).length > 0) {

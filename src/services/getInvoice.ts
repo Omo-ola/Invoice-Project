@@ -2,6 +2,8 @@ import axios from "axios";
 import { InvoiceData } from "../types/Interface";
 
 const address = "https://invoice-api-1.onrender.com/";
+// const address = "http://localhost:7000/";
+
 
 export async function getInvoice() {
   try {
@@ -55,7 +57,7 @@ export async function markPaid(id: string) {
     const response = await axios.put(
       `${address}api/invoices/${id}`,
       {
-        status: "paid", // Set the new status here
+        status: "paid",
       },
       {
         headers: {
