@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { FaPlus } from "react-icons/fa6";
 import { useQuery } from "@tanstack/react-query";
 import { getInvoice } from "../services/getInvoice";
-import { useEffect, useState } from "react";
 import { InvoiceData } from "../types/Interface";
 import { useFilter } from "../context/FilterContext";
 type FilterType = "All" | "Paid" | "Pending";
